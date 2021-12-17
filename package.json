@@ -1,0 +1,17 @@
+{
+  "name": "bulk-mint-nfts",
+  "version": "1.0.0",
+  "description": "bulk mint nfts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Neha Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.1",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "truffle": "^5.4.24"
+  }
+}
