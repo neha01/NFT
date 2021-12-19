@@ -6,6 +6,7 @@ const imagesDirName = 'images';
 const metadataDirName = 'metadata';
 
 const metadataDir = path.resolve(__dirname, '..', metadataDirName);
+const useHexadecimalFormatForImagesDir = true;
 
 function getAllFileNames(dir) {
     let fileNames = [];
@@ -34,26 +35,36 @@ function main() {
 
     const imagesDir = path.resolve(__dirname, '..', imagesDirName);
 
-    const fileNames = getAllFileNames(imagesDir);
+    let fileNames = getAllFileNames(imagesDir);
 
-    console.log('extracted filenames:', fileNames);
+    console.log('filenames in images directory:', fileNames);
     metadataArray = [];
 
     const metadataDir = path.resolve(__dirname, '..', metadataDirName);
 
     createDirIfNotExists(metadataDir);
+    // extract filenames without extension
+    fileNames = fileNames.map((fileName) => path.parse(fileName).name);
 
-    const promisesArray = fileNames.map((fileName) => {
+    const promisesArray = fileNames.map((fileName, idx) => {
         new Promise((resolve, reject) => {
             try {
-                const fileNameWithoutExtension = path.parse(fileName).name;
+                let hexString = null;
+                let sequence = null;
+                if (useHexadecimalFormatForImagesDir) {
+                    hexString = fileName;
+                    sequence = parseInt(hexString, 16);
+                } else {
+                    hexString = parseInt(idx + 1, 10).toString(16);
+                    sequence = idx + 1;
+                }
                 createMetadataFile(
                     {
-                        name: `${collectionName} #${fileNameWithoutExtension}`,
+                        name: `${collectionName} #${sequence}`,
                         description: `${description}`,
-                        image: `ipfs://${baseUri}/${fileNameWithoutExtension}.png`
+                        image: `${baseUri}/${fileName}.png`
                     },
-                    fileName
+                    hexString
                 );
             } catch (err) {
                 console.log(
@@ -74,16 +85,15 @@ function main() {
         );
 }
 
-function createMetadataFile(metadata, fileName) {
-    const fileNameWithoutExtension = path.parse(fileName).name;
+function createMetadataFile(metadata, hexString) {
     // convert filename to padded hex string
-    const hexString = toPaddedHexString(fileNameWithoutExtension, 64);
+    const paddedHexString = toPaddedHexString(hexString, 64);
     fs.writeFileSync(
-        `${metadataDir}/${hexString}.json`,
+        `${metadataDir}/${paddedHexString}.json`,
         JSON.stringify(metadata, null, 4),
         'utf8'
     );
-    console.log('metadata file created successfully for file: ', fileName);
+    console.log('metadata file created successfully for file: ', hexString);
 }
 
 function toPaddedHexString(num, len) {
