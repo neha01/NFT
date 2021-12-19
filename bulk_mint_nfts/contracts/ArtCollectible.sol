@@ -17,7 +17,7 @@ contract ArtCollectible is Ownable, ERC1155 {
         setName('Mandelbrot Julia Set Collection');
     }
 
-    function setBaseURI(string memory _newuri) public onlyOwner {
+    function setURI(string memory _newuri) public onlyOwner {
         _setURI(_newuri);
     }
 
