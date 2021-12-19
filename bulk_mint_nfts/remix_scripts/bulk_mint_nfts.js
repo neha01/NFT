@@ -65,3 +65,13 @@
         console.log(e.message);
     }
 })();
+
+function getTokenIds(startTokenId, size) {
+    return Array(size)
+        .fill()
+        .map((element, index) => index + startTokenId);
+}
+
+function getAmounts(size) {
+    return Array(size).fill(1);
+}
