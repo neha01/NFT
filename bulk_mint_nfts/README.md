@@ -9,6 +9,7 @@ Find the NFT's on Opensea Polygon mainnet: (they are up for sale 😇 🥰 )
 https://opensea.io/collection/mandelbrot-julia-set-collection
 
 ## Follow the Youtube tutorial here:
+[![BULK MINT NFT TUTORIAL](https://img.youtube.com/vi/KbhiAaRdgwc/0.jpg)](https://www.youtube.com/watch?v=KbhiAaRdgwc)  
 
 ### Dependencies:
 
