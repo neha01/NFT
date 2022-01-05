@@ -43,6 +43,7 @@ function main() {
     const metadataDir = path.resolve(__dirname, '..', metadataDirName);
 
     createDirIfNotExists(metadataDir);
+    const fileExtension = path.extname(fileNames[0] || '');
     // extract filenames without extension
     fileNames = fileNames.map((fileName) => path.parse(fileName).name);
 
@@ -62,7 +63,7 @@ function main() {
                     {
                         name: `${collectionName} #${sequence}`,
                         description: `${description}`,
-                        image: `${baseUri}/${fileName}.png`
+                        image: `${baseUri}/${fileName}${fileExtension}`
                     },
                     hexString
                 );
