@@ -53,12 +53,12 @@
                 'Amounts to be minted for each Token Id in current batch => ',
                 amounts
             );
-           
-        }
-        await artCollectible.methods
+                
+            await artCollectible.methods
             .mintBatch(ids, amounts)
             .send({ from: accounts[0] });
-        console.log('successfully batch minted NFTs for current batch');
+            console.log('successfully batch minted NFTs for current batch');
+        }
         
         // https://docs.openzeppelin.com/contracts/2.x/api/token/erc721#IERC721-balanceOf-address-
         // returns number of NFT's in owner's account for tokenID 1
